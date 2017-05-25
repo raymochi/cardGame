@@ -20,6 +20,10 @@ body {
   width: 60%;
 }
 
+#game-info {
+  margin: auto;
+}
+
 .img-responsive {
   height: 15vh;
 }
@@ -39,20 +43,34 @@ body {
   height: 60%;
 }
 
-#end-turn-btn {
+
+.div-btn {
+  margin: 5px;
   display: inline-block;
-  position: absolute;
-  left: 55%;
-  bottom: 4%;
   border-radius: 5px;
   background-color: #eee;
   border: solid 1px black;
   color: #00a087;
-  width: 100px;
+  width: 120px;
   padding: 20px;
   opacity: 0.95;
-  cursor: pointer;
   text-align: center;
+  /*width: 10%*/
+}
+
+#end-turn-btn {
+  position: absolute;
+  cursor: pointer;
+  left: 55%;
+  bottom: 4%;
+  width: 100px;
+}
+#concede-btn {
+  position: absolute;
+  cursor: pointer;
+  right: 5%;
+  top: 80px;
+  width: 100px;
 }
 
 #end-turn-btn:hover {
@@ -60,21 +78,6 @@ body {
   color: black;
 }
 
-#concede-btn {
-  display: inline-block;
-  position: absolute;
-  right: 10%;
-  top: 2%;
-  border-radius: 5px;
-  background-color: #eee;
-  border: solid 1px black;
-  color: #00a087;
-  width: 100px;
-  padding: 20px;
-  opacity: 0.95;
-  cursor: pointer;
-  text-align: center;
-}
 
 #concede-btn:hover {
   opacity: 1;
