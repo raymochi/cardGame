@@ -4,25 +4,55 @@ const express = require('express');
 const stringGen   = require('../lib/stringGenerator');
 const battleRoutes  = express.Router();
 
-let matchId = null;
+let matches = [];
 
-module.exports = (knex) => {
+function findOpenMatch(userId) {
+  return;
+}
+
+function addUserToMatch(userId) {
+  return;
+}
+
+function genMatchId() {
+  let matchId = '';
+  do {
+    matchId = stringGen();
+  } while (matches[matchId])
+  return matchId;
+}
+
+module.exports = (dataHelpers, battleLogic) => {
 
   battleRoutes.get('/', (req, res) => {
 
-    // if (!matchId) {
-    //   matchId = stringGen();
-    //   res.redirect(`/${matchId}`);
-    // } else {
-    //   res.redirect(`/${matchId}`);
-    //   matchId = null;
-    // }
+    res.render("battle");
   });
+
+  battleRoutes.post('/', (req, res) => {
+    let foundMatchId = findOpenMatch(1);
+    if( foundMatchId ) {
+      addUserToMatch(foundMatchId);
+      res.redirect(`/${foundMatchId}`);
+    } else {
+      let newMatchId = genMatchId();
+       battleLogic.initMatch(newMatchId, 1)
+      .then( (result) => {
+        matches[newMatchId] = result;
+        res.redirect(`/${newMatchId}`);
+      });
+    }
+
+  })
 
   //standard get request for loading battle page after
   //clicking play
   battleRoutes.get('/:mid/', (req, res) => {
+    res.render("battle");
+  });
 
+  battleRoutes.get('/:mid/match', (req, res) => {
+    res.render("battle");
   });
 
   //ajax updating every 5 seconds to check opponents moves

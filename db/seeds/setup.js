@@ -59,7 +59,6 @@ exports.seed = function(knex, Promise) {
     ]);
   })
   .then(function() {
-    console.log("inserting cards");
     return Promise.all([
       knex('cards').insert({id: 1, name: 'Warlord', type: 'creature' }),
       knex('cards').insert({id: 2, name: 'Knight', type: 'creature' }),
@@ -106,16 +105,16 @@ exports.seed = function(knex, Promise) {
       knex('deck_cards').insert({slot: 3, deck_id: 1, card_id: 3 }),
       knex('deck_cards').insert({slot: 4, deck_id: 1, card_id: 3 }),
       knex('deck_cards').insert({slot: 5, deck_id: 1, card_id: 3 }),
-      knex('deck_cards').insert({slot: 6, deck_id: 1, card_id: 3 }),
-      knex('deck_cards').insert({slot: 7, deck_id: 1, card_id: 3 }),
-      knex('deck_cards').insert({slot: 8, deck_id: 1, card_id: 3 }),
-      knex('deck_cards').insert({slot: 9, deck_id: 1, card_id: 3 }),
-      knex('deck_cards').insert({slot: 10, deck_id: 1, card_id: 3 }),
-      knex('deck_cards').insert({slot: 11, deck_id: 1, card_id: 3 }),
-      knex('deck_cards').insert({slot: 12, deck_id: 1, card_id: 3 }),
-      knex('deck_cards').insert({slot: 13, deck_id: 1, card_id: 3 }),
-      knex('deck_cards').insert({slot: 14, deck_id: 1, card_id: 3 }),
-      knex('deck_cards').insert({slot: 15, deck_id: 1, card_id: 3 }),
+      knex('deck_cards').insert({slot: 6, deck_id: 1, card_id: 7 }),
+      knex('deck_cards').insert({slot: 7, deck_id: 1, card_id: 7 }),
+      knex('deck_cards').insert({slot: 8, deck_id: 1, card_id: 7 }),
+      knex('deck_cards').insert({slot: 9, deck_id: 1, card_id: 7 }),
+      knex('deck_cards').insert({slot: 10, deck_id: 1, card_id: 7 }),
+      knex('deck_cards').insert({slot: 11, deck_id: 1, card_id: 11 }),
+      knex('deck_cards').insert({slot: 12, deck_id: 1, card_id: 11 }),
+      knex('deck_cards').insert({slot: 13, deck_id: 1, card_id: 11 }),
+      knex('deck_cards').insert({slot: 14, deck_id: 1, card_id: 11 }),
+      knex('deck_cards').insert({slot: 15, deck_id: 1, card_id: 11 }),
 
       knex('deck_cards').insert({slot: 1, deck_id: 2, card_id: 7 }),
       knex('deck_cards').insert({slot: 2, deck_id: 2, card_id: 7 }),

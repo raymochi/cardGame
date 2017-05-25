@@ -14,6 +14,9 @@ const knex        = require("knex")(knexConfig[ENV]);
 const morgan      = require('morgan');
 const knexLogger  = require('knex-logger');
 
+const dataHelpers = require('./lib/data-helpers')(knex);
+const battleLogic = require('./lib/battle-logic')(dataHelpers);
+
 // Seperated Routes for each Resource
 const usersRoutes = require("./routes/users");
 const battleRoutes = require("./routes/battle");
@@ -38,15 +41,12 @@ app.use(express.static("public"));
 
 // Mount all resource routes
 app.use("/api/users", usersRoutes(knex));
-app.use("/api/users", battleRoutes(knex));
+app.use("/battle", battleRoutes(dataHelpers, battleLogic));
+
 
 // Home page
 app.get("/", (req, res) => {
   res.render("index");
-});
-
-app.get("/battle", (req, res) => {
-  res.render("battle");
 });
 
 
