@@ -1,7 +1,7 @@
 "use strict";
 
 const express = require('express');
-const stringGen   = require('./lib/stringGenerator');
+const stringGen   = require('../lib/stringGenerator');
 const battleRoutes  = express.Router();
 
 let matchId = null;
