@@ -1,18 +1,35 @@
 "use strict";
 
 const express = require('express');
-const router  = express.Router();
+const userRoutes  = express.Router();
 
 module.exports = (knex) => {
 
-  router.get("/", (req, res) => {
+  userRoutes.get('/', (req, res) => {
     knex
-      .select("*")
-      .from("users")
+      .select('*')
+      .from('users')
       .then((results) => {
         res.json(results);
     });
   });
 
-  return router;
+  userRoutes.post('/login', (req, res) => {
+
+  });
+
+  userRoutes.post('/logout', (req, res) => {
+
+  });
+
+  userRoutes.post('/register', (req, res) => {
+
+  });
+
+  userRoutes.post('/chat', (req, res) => {
+
+  });
+
+
+  return userRoutes;
 }
