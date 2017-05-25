@@ -9,13 +9,14 @@ let matchId = null;
 module.exports = (knex) => {
 
   battleRoutes.get('/', (req, res) => {
-    if (!matchId) {
-      matchId = stringGen();
-      res.redirect(`/${matchId}`);
-    } else {
-      res.redirect(`/${matchId}`);
-      matchId = null;
-    }
+
+    // if (!matchId) {
+    //   matchId = stringGen();
+    //   res.redirect(`/${matchId}`);
+    // } else {
+    //   res.redirect(`/${matchId}`);
+    //   matchId = null;
+    // }
   });
 
   //standard get request for loading battle page after
