@@ -32,7 +32,7 @@ body {
   padding: 10px
 }
 
-.container {
+#board {
   float: left;
   width: 70%;
 }
@@ -73,13 +73,7 @@ body {
   width: 100px;
 }
 
-#end-turn-btn:hover {
-  opacity: 1;
-  color: black;
-}
-
-
-#concede-btn:hover {
+.div-btn:hover {
   opacity: 1;
   color: black;
 }

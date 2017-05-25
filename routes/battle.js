@@ -33,13 +33,13 @@ module.exports = (dataHelpers, battleLogic) => {
     let foundMatchId = findOpenMatch(1);
     if( foundMatchId ) {
       addUserToMatch(foundMatchId);
-      res.redirect(`/${foundMatchId}`);
+      res.redirect(`/battle/${foundMatchId}`);
     } else {
       let newMatchId = genMatchId();
        battleLogic.initMatch(newMatchId, 1)
       .then( (result) => {
         matches[newMatchId] = result;
-        res.redirect(`/${newMatchId}`);
+        res.redirect(`/battle/${newMatchId}`);
       });
     }
 
