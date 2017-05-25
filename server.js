@@ -45,6 +45,11 @@ app.get("/", (req, res) => {
   res.render("index");
 });
 
+app.get("/battle", (req, res) => {
+  res.render("battle");
+});
+
+
 app.listen(PORT, () => {
   console.log("Example app listening on port " + PORT);
 });

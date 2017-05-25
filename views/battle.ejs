@@ -1,17 +1,131 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>Home Page</title>
+    <title>MATCH!</title>
 
-    <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" type="text/css" />
+    <!-- <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" type="text/css" /> -->
     <link rel="stylesheet" href="/vendor/border-box.css" type="text/css" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" type="text/css" />
     <link rel="stylesheet" href="/styles/layout.css" type="text/css" />
 
     <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
+    <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="/scripts/app.js"></script>
   </head>
 
   <body>
-    <h1>Hello World!</h1>
+    <div>
+      <h1>Battle!</h1>
+
+
+    </div>
+    <main class="container">
+      <div id="board">
+        <div class="row" id="row0">
+          <div class="col-xs-2" id="r0c0">
+            <div>
+              <img src="/images/blank.jpg" class="img-responsive">
+            </div>
+          </div>
+          <div class="col-xs-2" id="r0c1">
+            <div>
+              <img src="/images/blank.jpg" class="img-responsive">
+            </div>
+          </div>
+          <div class="col-xs-2" id="r0c2">
+            <div>
+              <img src="/images/blank.jpg" class="img-responsive">
+            </div>
+          </div>
+        </div>
+
+        <div class="row" id="row1">
+          <div class="col-xs-2" id="r1c0">
+            <div>
+              <img src="/images/blank.jpg" class="img-responsive">
+            </div>
+          </div>
+          <div class="col-xs-2" id="r1c1">
+            <div>
+              <img src="/images/blank.jpg" class="img-responsive">
+            </div>
+          </div>
+          <div class="col-xs-2" id="r1c2">
+            <div>
+              <img src="/images/blank.jpg" class="img-responsive">
+            </div>
+          </div>
+        </div>
+
+        <div class="row" id="row2">
+          <div class="col-xs-2" id="r2c0">
+            <div>
+              <img src="/images/blank.jpg" class="img-responsive">
+            </div>
+          </div>
+          <div class="col-xs-2" id="r2c1">
+            <div>
+              <img src="/images/blank.jpg" class="img-responsive">
+            </div>
+          </div>
+          <div class="col-xs-2" id="r2c2">
+            <div>
+              <img src="/images/blank.jpg" class="img-responsive">
+            </div>
+          </div>
+        </div>
+
+        <div class="row" id="row3">
+          <div class="col-xs-2" id="r3c0">
+            <div>
+              <img src="/images/blank.jpg" class="img-responsive">
+            </div>
+          </div>
+          <div class="col-xs-2" id="r3c1">
+            <div>
+              <img src="/images/blank.jpg" class="img-responsive">
+            </div>
+          </div>
+          <div class="col-xs-2" id="r3c2">
+            <div>
+              <img src="/images/blank.jpg" class="img-responsive">
+            </div>
+          </div>
+        </div>
+
+        <div class="row" id="hand">
+          <div class="col-xs-2" id="hand0">
+            <div>
+              <img src="/images/blank.jpg" class="img-responsive" class="handcard">
+            </div>
+          </div>
+          <div class="col-xs-2" id="hand1" class="handcard">
+            <div>
+              <img src="/images/blank.jpg" class="img-responsive" class="handcard">
+            </div>
+          </div>
+          <div class="col-xs-2" id="hand2">
+            <div>
+              <img src="/images/blank.jpg" class="img-responsive" class="handcard">
+            </div>
+          </div>
+          <div class="col-xs-2" id="hand3" class="handcard" >
+            <div>
+              <img src="/images/blank.jpg" class="img-responsive" class="handcard">
+            </div>
+          </div>
+          <div class="col-xs-2" id="hand4" class="handcard">
+            <div>
+              <img src="/images/blank.jpg" class="img-responsive" class="handcard">
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </main>
+
+    <section class="chatbox">
+      <h1>Chat Here!</h1>
+    </section>
   </body>
 </html>

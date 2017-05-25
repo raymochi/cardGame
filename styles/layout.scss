@@ -5,3 +5,50 @@ body {
     color: #244751;
   }
 }
+
+.row {
+  padding: 10px;
+  /*max-height: 20vh;*/
+}
+
+.img-responsive {
+  height: 15vh;
+
+  .handcard {
+    position: fixed;
+    height: 20vh;
+  }
+
+}
+
+.chatbox {
+  float: right;
+}
+
+#board {
+  /*position: absolute;*/
+  /*height: 80vh;*/
+  /*margin: 10px 10px 10px 10px;*/
+}
+
+.card-holder {
+  background: rgba(200,200,200,0.9);
+  height: 400px;
+  width: 200px;
+  position: relative;
+}
+
+.card {
+  background: #BB0000;
+  height: 300px;
+  width: 200px;
+  position: absolute;
+  bottom: 0;
+  transition: bottom 0.5s, box-shadow 0.5s;
+  border-radius: 10px;
+}
+
+.card-holder:hover .card {
+  bottom: 30px;
+  box-shadow: 0 0 10px 5px orange;
+}
