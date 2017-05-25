@@ -33,16 +33,20 @@ body {
 }
 
 #board {
+  margin-left: 10px;
   float: left;
   width: 70%;
 }
 
 .chatbox {
   float: right;
-  width: 30%;
+  width: 20%;
   height: 60%;
 }
 
+.container {
+  border: 5px solid black;
+}
 
 .div-btn {
   margin: 5px;
@@ -76,13 +80,6 @@ body {
 .div-btn:hover {
   opacity: 1;
   color: black;
-}
-
-#board {
-  /*width: 50%;*/
-  /*position: absolute;*/
-  /*height: 80vh;*/
-  /*margin: 10px 10px 10px 10px;*/
 }
 
 .card-holder {

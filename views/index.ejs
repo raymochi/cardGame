@@ -15,16 +15,21 @@
 
   <body>
     <div class="row">
-      <section class="col-xs-6 container" id="games-container">
-        <h1>Games</h1>
-      </section>
-      <div class="col-xs-6">
+      <div class="col-md-5 container">
+        <section id="games-container">
+          <h1>Games</h1>
+        </section>
+      </div>
+      <div class="col-md-5">
         <section class="container" id="chat-container"><h1>Chat</h1></section>
 
         <section class="container" id="settings-container">
           <h1>Settings</h1>
           <form method="POST" action="/battle">
           <input type="submit" value="Play" class="div-btn" id="play-btn"></form>
+          <div class="div-btn" id="logout-btn">Logout</div>
+          <div class="div-btn" id="register-btn">Register</div>
+          <div class="div-btn" id="login-btn">Login</div>
 
         </section>
       </div>
