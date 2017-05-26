@@ -32,7 +32,7 @@ function genMatchId() {
 module.exports = (dataHelpers, battleLogic) => {
 
   battleRoutes.get('/', (req, res) => {
-
+    console.log(battleLogic.initMatch('rwa2', 1));
     res.render("battle");
   });
 

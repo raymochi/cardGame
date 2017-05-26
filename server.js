@@ -2,25 +2,26 @@
 
 require('dotenv').config();
 
-const PORT        = process.env.PORT || 8080;
-const ENV         = process.env.ENV || "development";
-const express     = require("express");
-const bodyParser  = require("body-parser");
-const sass        = require("node-sass-middleware");
-const app         = express();
+const PORT          = process.env.PORT || 8080;
+const ENV           = process.env.ENV || "development";
+const express       = require("express");
+const bodyParser    = require("body-parser");
+const sass          = require("node-sass-middleware");
+const app           = express();
 const cookieSession = require("cookie-session");
 
-const knexConfig  = require("./knexfile");
-const knex        = require("knex")(knexConfig[ENV]);
-const morgan      = require('morgan');
-const knexLogger  = require('knex-logger');
+const knexConfig    = require("./knexfile");
+const knex          = require("knex")(knexConfig[ENV]);
+const morgan        = require('morgan');
+const knexLogger    = require('knex-logger');
 
-const dataHelpers = require('./lib/data-helpers')(knex);
-const battleLogic = require('./lib/battle-logic')(dataHelpers);
+const dataHelpers   = require('./lib/data-helpers')(knex);
+const battleLogic   = require('./lib/battle-logic')(dataHelpers);
+const userHelpers   = require('./lib/user-helpers')(dataHelpers);
 
 // Seperated Routes for each Resource
-const usersRoutes = require("./routes/users");
-const battleRoutes = require("./routes/battle");
+const usersRoutes   = require("./routes/users");
+const battleRoutes  = require("./routes/battle");
 
 // Load the logger first so all (static) HTTP requests are logged to STDOUT
 // 'dev' = Concise output colored by response status for development use.
@@ -41,7 +42,7 @@ app.use("/styles", sass({
 app.use(express.static("public"));
 
 // Mount all resource routes
-app.use("/api/users", usersRoutes(knex));
+app.use("/api/users", usersRoutes(dataHelpers, userHelpers));
 app.use("/battle", battleRoutes(dataHelpers, battleLogic));
 
 

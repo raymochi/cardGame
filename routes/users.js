@@ -3,15 +3,11 @@
 const express = require('express');
 const userRoutes  = express.Router();
 
-module.exports = (knex) => {
+module.exports = (dataHelpers, userHelpers) => {
 
   userRoutes.get('/', (req, res) => {
-    knex
-      .select('*')
-      .from('users')
-      .then((results) => {
-        res.json(results);
-    });
+    let pass = userHelpers.validateLogin('Armel');
+    console.log(pass);
   });
 
   userRoutes.post('/login', (req, res) => {
