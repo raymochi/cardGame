@@ -7,7 +7,18 @@ const userRoutes    = express.Router();
 module.exports = (dataHelpers, userHelpers) => {
 
   userRoutes.get('/', (req, res) => {
-    res.render('index');
+    let posts = [];
+    userHelpers.renderChat()
+    .then( (logs) => {
+      for (let log of logs) {
+        posts.push(log.message);
+      }
+      // console.log(posts);
+      let templateVars = {
+        chatLog: posts
+      }
+      res.render('index', templateVars);
+    })
   });
 
   userRoutes.post('/login', (req, res) => {
@@ -19,7 +30,7 @@ module.exports = (dataHelpers, userHelpers) => {
         req.session.userid = user.id;
         res.redirect('/');
       } else {
-        console.log("invalid password");
+        console.log('invalid password');
         res.status(401);
       }
     });
@@ -43,7 +54,25 @@ module.exports = (dataHelpers, userHelpers) => {
   });
 
   userRoutes.post('/chat', (req, res) => {
-
+    let userId = req.session.userid;
+    let currentTime = new Date();
+    let hours = currentTime.getHours();
+    let minutes = currentTime.getMinutes();
+    if (minutes < 10) {
+      minutes = "0" + minutes;
+    }
+    if (hours < 10) {
+      hours = "0" + hours;
+    }
+    if (req.session.userid) {
+      dataHelpers.getUserName(userId)
+      .then( (currentUser) => {
+        userHelpers.postMessage(userId, 'global', `[${hours}:${minutes}] ${currentUser}: ${req.body.post}`)
+        .then( () => {console.log('message posted')})
+      });
+    }
+    //posts.push(`[${hours}:${minutes}] ${currentUser}: ${req.body.post}`);
+    res.redirect('/')
   });
 
 

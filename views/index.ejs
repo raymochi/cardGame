@@ -21,7 +21,22 @@
         </section>
       </div>
       <div class="col-md-5">
-        <section class="container" id="chat-container"><h1>Chat</h1></section>
+        <section class="container" id="chat-container">
+        <h1>Chat</h1>
+          <div class="forum">
+            <nav>
+              <ul>
+                <% for (log of chatLog) { %>
+                  <li style="padding:2px"><%= log %></li>
+                <% } %>
+              </ul>
+            </nav>
+            <form method="POST" action="/chat" style="padding:5px;position:absolute;bottom:3px">
+              <input type="text" name="post" style="width:74%">
+              <input type="submit" value="Post" style="width:40px">
+            </form>
+          </div>
+        </section>
 
         <section class="container" id="settings-container">
           <h1>Settings</h1>
