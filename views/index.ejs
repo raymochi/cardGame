@@ -28,10 +28,62 @@
           <form method="POST" action="/battle">
           <input type="submit" value="Play" class="div-btn" id="play-btn"></form>
           <div class="div-btn" id="logout-btn">Logout</div>
-          <div class="div-btn" id="register-btn">Register</div>
-          <div class="div-btn" id="login-btn">Login</div>
+          <div class="div-btn" id="register-btn" data-toggle="modal" data-target="#modal-register">Register</div>
+          <div class="div-btn" id="login-btn" data-toggle="modal" data-target="#modal-login">Login</div>
 
         </section>
+      </div>
+    </div>
+
+    <div id="modal-login" class="modal fade" role="login">
+      <div class="modal-dialog">
+        <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Login</h4>
+        </div>
+        <div class="modal-body">
+          <form action="/login" method="POST">
+            <label for="username">Username:</label></br>
+            <input type="text" name="username"></br></br>
+            <label for="password">Password:</label></br>
+            <input type="password" name="password"></br></br>
+            <input type="submit" value="Login">
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-toggle="modal" data-target="#modal-register" data-dismiss="modal">Register</button>
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+
+      </div>
+    </div>
+
+    <div id="modal-register" class="modal fade" role="register">
+      <div class="modal-dialog">
+        <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Register</h4>
+        </div>
+        <div class="modal-body">
+          <form action="/register" method="POST">
+            <label for="email">Email:</label></br>
+            <input type="email" name="email"></br></br>
+            <label for="username">Username:</label></br>
+            <input type="text" name="username"></br></br>
+            <label for="password">Password:</label></br>
+            <input type="password" name="password"></br></br>
+            <input type="submit" value="Register">
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-toggle="modal" data-target="#modal-login" data-dismiss="modal">Login</button>
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+
       </div>
     </div>
 
