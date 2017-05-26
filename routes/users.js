@@ -6,8 +6,11 @@ const userRoutes  = express.Router();
 module.exports = (dataHelpers, userHelpers) => {
 
   userRoutes.get('/', (req, res) => {
-    let pass = userHelpers.validateLogin('Armel');
-    console.log(pass);
+    userHelpers.validateLogin('Armel')
+    .then( (pass) => {
+      console.log(pass);
+    });
+
   });
 
   userRoutes.post('/login', (req, res) => {

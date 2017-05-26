@@ -45,7 +45,7 @@ module.exports = (dataHelpers, battleLogic) => {
       res.redirect(`/battle/${foundMatchId}`);
     } else {
       let newMatchId = genMatchId();
-       battleLogic.initMatch(newMatchId, 1)
+      battleLogic.initMatch(newMatchId, 1)
       .then( (result) => {
         matches[newMatchId] = result;
         res.redirect(`/battle/${newMatchId}`);
