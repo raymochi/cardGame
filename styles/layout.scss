@@ -1,5 +1,8 @@
+@import 'default-variables';
+@import 'battle';
+
 body {
-  background-color: #EEE;
+  background-color: $background-color;
 
   h1 {
     color: #244751;
@@ -12,30 +15,8 @@ body {
 
 }
 
-#hand {
-  display: inline-block;
-  position: absolute;
-  left: 0;
-  bottom: 10px;
-  width: 60%;
-}
-
 #game-info {
   margin: auto;
-}
-
-.img-responsive {
-  height: 15vh;
-}
-
-.handcard {
-  padding: 10px
-}
-
-#board {
-  margin-left: 10px;
-  float: left;
-  width: 70%;
 }
 
 .chatbox {
@@ -52,7 +33,7 @@ body {
   margin: 5px;
   display: inline-block;
   border-radius: 5px;
-  background-color: #eee;
+  background-color: $background-color;
   border: solid 1px black;
   color: #00a087;
   /*width: 120px;*/
@@ -62,41 +43,7 @@ body {
   /*width: 10%*/
 }
 
-#end-turn-btn {
-  position: absolute;
-  cursor: pointer;
-  left: 55%;
-  bottom: 4%;
-  width: 100px;
-}
-#concede-btn {
-  position: absolute;
-  cursor: pointer;
-  right: 5%;
-  top: 80px;
-  width: 100px;
-}
-
 .div-btn:hover {
   opacity: 1;
   color: black;
-}
-
-.card-holder {
-  background: rgba(200,200,200,0.9);
-  /*height: 400px;
-  width: 200px;
-  position: relative;*/
-}
-
-.card img {
-  position: absolute;
-  bottom: 0px;
-  transition: bottom 0.5s, box-shadow 0.5s;
-  border-radius: 10px;
-}
-
-.card:hover img {
-  bottom: 30px;
-  box-shadow: 0 0 10px 5px orange;
 }

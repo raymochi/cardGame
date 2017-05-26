@@ -1,0 +1,56 @@
+#hand {
+  display: inline-block;
+  position: absolute;
+  left: 0;
+  bottom: 10px;
+  width: 60%;
+}
+
+.img-responsive {
+  height: 15vh;
+}
+
+.handcard {
+  padding: 10px
+}
+
+#board {
+  margin-left: 10px;
+  float: left;
+  width: 70%;
+}
+
+#end-turn-btn {
+  position: absolute;
+  cursor: pointer;
+  left: 55%;
+  bottom: 4%;
+  width: 100px;
+}
+
+#concede-btn {
+  position: absolute;
+  cursor: pointer;
+  right: 5%;
+  top: 80px;
+  width: 100px;
+}
+
+.card-holder {
+  background: rgba(200,200,200,0.9);
+  /*height: 400px;
+  width: 200px;
+  position: relative;*/
+}
+
+.card img {
+  position: absolute;
+  bottom: 0px;
+  transition: bottom $hand-transition-time, box-shadow $hand-transition-time;
+  border-radius: 10px;
+}
+
+.card:hover img {
+  bottom: 30px;
+  box-shadow: 0 0 10px 5px $hand-glow-color;
+}
