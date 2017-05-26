@@ -1,7 +1,7 @@
 $(() => {
   $.ajax({
     method: "GET",
-    url: "/api/users"
+    url: "/"
   }).done((users) => {
     for(user of users) {
       $("<div>").text(user.username).appendTo($("body"));

@@ -10,8 +10,8 @@ const sass          = require("node-sass-middleware");
 const app           = express();
 const cookieSession = require("cookie-session");
 
-const knexConfig    = require("./knexfile");
-const knex          = require("knex")(knexConfig[ENV]);
+const knexConfig    = require('./knexfile');
+const knex          = require('knex')(knexConfig[ENV]);
 const morgan        = require('morgan');
 const knexLogger    = require('knex-logger');
 
@@ -41,15 +41,16 @@ app.use("/styles", sass({
 }));
 app.use(express.static("public"));
 
+app.use(cookieSession({
+  name: "session",
+  keys: ["key1", "key2"],
+  maxAge: 60 * 60 * 1000
+
+}));
+
 // Mount all resource routes
-app.use("/api/users", usersRoutes(dataHelpers, userHelpers));
+app.use("/", usersRoutes(dataHelpers, userHelpers));
 app.use("/battle", battleRoutes(dataHelpers, battleLogic));
-
-
-// Home page
-app.get("/", (req, res) => {
-  res.render("index");
-});
 
 
 app.listen(PORT, () => {

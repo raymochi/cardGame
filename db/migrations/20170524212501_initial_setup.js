@@ -75,13 +75,13 @@ exports.down = function(knex, Promise) {
       table.dropColumn('rating');
     }),
 
+    knex.schema.dropTable('creatures'),
+    knex.schema.dropTable('effects'),
     knex.schema.dropTable('friends'),
     knex.schema.dropTable('game_archives'),
     knex.schema.dropTable('chats'),
-    knex.schema.dropTable('decks'),
     knex.schema.dropTable('deck_cards'),
+    knex.schema.dropTable('decks'),
     knex.schema.dropTable('cards'),
-    knex.schema.dropTable('creatures'),
-    knex.schema.dropTable('effects'),
   ]);
 };

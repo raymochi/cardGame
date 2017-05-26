@@ -27,9 +27,9 @@ exports.seed = function(knex, Promise) {
 
   .then(function () {
     return Promise.all([
-      knex('users').insert({id: 1, username: 'Armel', password: 'fake', email: 'fake1@test.com', avatar: 'https://image.flaticon.com/icons/png/128/126/126486.png', rating: '1000'}),
-      knex('users').insert({id: 2, username: 'Raymond', password: 'fake', email: 'fake2@test.com', avatar: 'https://image.flaticon.com/icons/png/128/126/126486.png', rating: '1000'}),
-      knex('users').insert({id: 3, username: 'Juan', password: 'fake', email: 'fake3@test.com', avatar: 'https://image.flaticon.com/icons/png/128/126/126486.png', rating: '1000'}),
+      knex('users').insert({username: 'Armel', password: 'fake', email: 'fake1@test.com', avatar: 'https://image.flaticon.com/icons/png/128/126/126486.png', rating: '1000'}),
+      knex('users').insert({username: 'Raymond', password: 'fake', email: 'fake2@test.com', avatar: 'https://image.flaticon.com/icons/png/128/126/126486.png', rating: '1000'}),
+      knex('users').insert({username: 'Juan', password: 'fake', email: 'fake3@test.com', avatar: 'https://image.flaticon.com/icons/png/128/126/126486.png', rating: '1000'}),
     ]);
   })
   .then(function() {
@@ -40,38 +40,38 @@ exports.seed = function(knex, Promise) {
   })
   .then(function() {
     return Promise.all([
-      knex('game_archives').insert({id: 1, user1_id: 1, user2_id: 2, date: new Date, winner_id: 2 }),
-      knex('game_archives').insert({id: 2, user1_id: 3, user2_id: 2, date: new Date, winner_id: 3 }),
+      knex('game_archives').insert({user1_id: 1, user2_id: 2, date: new Date, winner_id: 2 }),
+      knex('game_archives').insert({user1_id: 3, user2_id: 2, date: new Date, winner_id: 3 }),
     ]);
   })
   .then(function() {
     return Promise.all([
-      knex('chats').insert({id: 1, user_id: 1, channel: 'global', message: 'Hello World!' }),
-      knex('chats').insert({id: 2, user_id: 3, channel: 'global', message: 'Hello Chat!' }),
+      knex('chats').insert({user_id: 1, channel: 'global', message: 'Hello World!' }),
+      knex('chats').insert({user_id: 3, channel: 'global', message: 'Hello Chat!' }),
     ]);
   })
   .then(function() {
     return Promise.all([
-      knex('decks').insert({id: 1, user_id: 1 }),
-      knex('decks').insert({id: 2, user_id: 2 }),
-      knex('decks').insert({id: 3, user_id: 3 }),
+      knex('decks').insert({user_id: 1 }),
+      knex('decks').insert({user_id: 2 }),
+      knex('decks').insert({user_id: 3 }),
 
     ]);
   })
   .then(function() {
     return Promise.all([
-      knex('cards').insert({id: 1, name: 'Warlord', type: 'creature' }),
-      knex('cards').insert({id: 2, name: 'Knight', type: 'creature' }),
-      knex('cards').insert({id: 3, name: 'Soldier', type: 'creature' }),
-      knex('cards').insert({id: 4, name: 'Squire', type: 'creature' }),
-      knex('cards').insert({id: 5, name: 'Archmage', type: 'creature' }),
-      knex('cards').insert({id: 6, name: 'Mage', type: 'creature' }),
-      knex('cards').insert({id: 7, name: 'Scholar', type: 'creature' }),
-      knex('cards').insert({id: 8, name: 'Apprentice', type: 'creature' }),
-      knex('cards').insert({id: 9, name: 'Assassin', type: 'creature' }),
-      knex('cards').insert({id: 10, name: 'Archer', type: 'creature' }),
-      knex('cards').insert({id: 11, name: 'Rogue', type: 'creature' }),
-      knex('cards').insert({id: 12, name: 'Scout', type: 'creature' }),
+      knex('cards').insert({name: 'Warlord', type: 'creature' }),
+      knex('cards').insert({name: 'Knight', type: 'creature' }),
+      knex('cards').insert({name: 'Soldier', type: 'creature' }),
+      knex('cards').insert({name: 'Squire', type: 'creature' }),
+      knex('cards').insert({name: 'Archmage', type: 'creature' }),
+      knex('cards').insert({name: 'Mage', type: 'creature' }),
+      knex('cards').insert({name: 'Scholar', type: 'creature' }),
+      knex('cards').insert({name: 'Apprentice', type: 'creature' }),
+      knex('cards').insert({name: 'Assassin', type: 'creature' }),
+      knex('cards').insert({name: 'Archer', type: 'creature' }),
+      knex('cards').insert({name: 'Rogue', type: 'creature' }),
+      knex('cards').insert({name: 'Scout', type: 'creature' }),
 
     ]);
   })
