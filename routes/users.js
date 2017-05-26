@@ -16,6 +16,9 @@ module.exports = (dataHelpers, userHelpers) => {
         console.log('logged in',user.id);
         req.session.userid = user.id;
         res.redirect('/');
+      } else {
+        console.log("invalid password");
+        res.status(401);
       }
     });
   });
