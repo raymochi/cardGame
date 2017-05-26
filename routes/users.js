@@ -1,5 +1,6 @@
 "use strict";
 
+const bcrypt        = require('bcrypt');
 const express       = require('express');
 const userRoutes    = express.Router();
 
@@ -10,9 +11,10 @@ module.exports = (dataHelpers, userHelpers) => {
   });
 
   userRoutes.post('/login', (req, res) => {
-    userHelpers.validateLogin(req.body.username)
+    let username = req.body.username.toLowerCase();
+    userHelpers.validateLogin(username)
     .then( (user) => {
-      if (req.body.password === user.password) {
+      if (bcrypt.compareSync(req.body.password, user.password)) {
         console.log('logged in',user.id);
         req.session.userid = user.id;
         res.redirect('/');
@@ -30,7 +32,10 @@ module.exports = (dataHelpers, userHelpers) => {
   });
 
   userRoutes.post('/register', (req, res) => {
-    userHelpers.registerAccount(req.body.username, req.body.password, req.body.email)
+    let username = req.body.username.toLowerCase();
+    let email = req.body.email.toLowerCase();
+    let hashedPass = bcrypt.hashSync(req.body.password, 10);
+    userHelpers.registerAccount(username, hashedPass, email)
     .then( () => {
       console.log('register request completed');
     });
