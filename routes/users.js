@@ -8,7 +8,7 @@ module.exports = (dataHelpers, userHelpers) => {
 
   userRoutes.get('/', (req, res) => {
     let posts = [];
-    userHelpers.renderChat()
+    dataHelpers.getChatsByChannel('global')
     .then( (logs) => {
       for (let log of logs) {
         posts.push(log.message);
@@ -67,11 +67,10 @@ module.exports = (dataHelpers, userHelpers) => {
     if (req.session.userid) {
       dataHelpers.getUserName(userId)
       .then( (currentUser) => {
-        userHelpers.postMessage(userId, 'global', `[${hours}:${minutes}] ${currentUser}: ${req.body.post}`)
+        userHelpers.postMessage(userId, 'global', `[${hours}:${minutes}] ${currentUser.toUpperCase()}: ${req.body.post}`)
         .then( () => {console.log('message posted')})
       });
     }
-    //posts.push(`[${hours}:${minutes}] ${currentUser}: ${req.body.post}`);
     res.redirect('/')
   });
 

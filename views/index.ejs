@@ -15,7 +15,7 @@
 
   <body>
     <div class="row">
-      <div class="col-md-5 container">
+      <div class="col-md-4 container">
         <section id="games-container">
           <h1>Games</h1>
         </section>
@@ -31,7 +31,7 @@
                 <% } %>
               </ul>
             </nav>
-            <form method="POST" action="/chat" style="padding:5px;position:absolute;bottom:3px">
+            <form method="POST" action="/chat" style="padding:5px;position:relative;bottom:3px">
               <input type="text" name="post" style="width:74%">
               <input type="submit" value="Post" style="width:40px">
             </form>
@@ -57,7 +57,7 @@
         <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h4 class="modal-title">Login</h4>
+          <h2 class="modal-title">Login</h2>
         </div>
         <div class="modal-body">
           <form action="/login" method="POST">
@@ -82,7 +82,7 @@
         <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h4 class="modal-title">Register</h4>
+          <h2 class="modal-title">Register</h2>
         </div>
         <div class="modal-body">
           <form action="/register" method="POST">
