@@ -32,8 +32,8 @@ function genMatchId() {
 module.exports = (dataHelpers, battleLogic) => {
 
   battleRoutes.get('/', (req, res) => {
-    console.log(battleLogic.initMatch('rwa2', 1));
-    res.render("battle");
+    // console.log(battleLogic.initMatch('rwa2', 1));
+    res.render('battle');
   });
 
   // POST request when first clicking play, cueing the server to look for existing matches, and creating a new one if none found.
@@ -57,15 +57,24 @@ module.exports = (dataHelpers, battleLogic) => {
   //standard get request for loading battle page after
   //clicking play
   battleRoutes.get('/:mid/', (req, res) => {
-    res.render("battle");
+    let mid = req.params.mid
+    if ( matches[mid] ) {
+      // let currMatch = battleLogic.formatMatchResponse(matches[mid], 1);
+      res.render('battle');
+    } else {
+      res.redirect('/')
+    }
   });
 
   // response to ajax request for full game state.
   battleRoutes.get('/:mid/match', (req, res) => {
-    if (matches[mid]) {
-      res.json("battle");
+    let mid = req.params.mid
+    if ( matches[mid] ) {
+      let currMatch = battleLogic.formatMatchResponse(matches[mid], 1);
+      res.json(currMatch);
+    } else {
+      res.redirect('/')
     }
-    res.json("battle");
   });
 
   //ajax updating every 5 seconds to check opponents moves
