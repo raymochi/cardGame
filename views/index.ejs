@@ -18,6 +18,15 @@
       <div class="col-md-4 container">
         <section id="games-container">
           <h1>Games</h1>
+          <article class="match-box">
+            <header>
+              <h2>Player 1 Vs. Player 2</h2>
+            </header>
+            <p> Match info here</p>
+            <footer>
+              <p>started 2 minutes ago</p>
+            </footer>
+          </article>
         </section>
       </div>
       <div class="col-md-5">
@@ -25,7 +34,7 @@
         <h1>Chat</h1>
           <div class="forum">
             <nav>
-              <ul style="height:200px;overflow:hidden;overflow-y:scroll;">
+              <ul class="chat-box">
                 <% for (log of chatLog) { %>
                   <li style="padding:2px"><%= log %></li>
                 <% } %>
