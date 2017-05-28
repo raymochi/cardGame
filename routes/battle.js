@@ -6,13 +6,22 @@ const battleRoutes  = express.Router();
 
 let matches = [];
 
+function isMatchOpen(userId, mid) {
+  return !matches[mid].user2 && matches[mid].user1 !== userId;
+}
+
 function findOpenMatch(userId) {
-  // TODO, look through existing open matches to find one to add user to.
+  for (let mid in matches) {
+    if ( !isMatchOpen(userId, mid) ) {
+      return mid;
+    }
+  }
   return;
 }
 
 function addUserToMatch(userId, mid) {
   // TODO, add user to existing match
+
   return;
 }
 
@@ -29,23 +38,26 @@ function genMatchId() {
 // 'match' param should be the full match object
 
 
-module.exports = (dataHelpers, battleLogic) => {
+module.exports = (dataHelpers, battleLogic, io) => {
 
   battleRoutes.get('/', (req, res) => {
-    // console.log(battleLogic.initMatch('rwa2', 1));
     res.render('battle');
   });
 
   // POST request when first clicking play, cueing the server to look for existing matches, and creating a new one if none found.
   // redirects user to the appropriate match ID.
   battleRoutes.post('/', (req, res) => {
-    let foundMatchId = findOpenMatch(1);
+    let userId = req.session.userid;
+    let foundMatchId = findOpenMatch(userId);
     if( foundMatchId ) {
-      addUserToMatch(1,foundMatchId);
-      res.redirect(`/battle/${foundMatchId}`);
+      battleLogic.addUserToMatch(userId, matches[foundMatchId])
+      .then( (result) => {
+        res.redirect(`/battle/${foundMatchId}`);
+      });
+
     } else {
       let newMatchId = genMatchId();
-      battleLogic.initMatch(newMatchId, 1)
+      battleLogic.initMatch(newMatchId, userId)
       .then( (result) => {
         matches[newMatchId] = result;
         res.redirect(`/battle/${newMatchId}`);
@@ -69,8 +81,9 @@ module.exports = (dataHelpers, battleLogic) => {
   // response to ajax request for full game state.
   battleRoutes.get('/:mid/match', (req, res) => {
     let mid = req.params.mid
+    let userId = req.session.userid
     if ( matches[mid] ) {
-      let currMatch = battleLogic.formatMatchResponse(matches[mid], 1);
+      let currMatch = battleLogic.formatMatchResponse(matches[mid], userId);
       res.json(currMatch);
     } else {
       res.redirect('/')
@@ -84,16 +97,11 @@ module.exports = (dataHelpers, battleLogic) => {
 
   //user actions such as summoning creature or playing spell
   battleRoutes.post('/:mid/action', (req, res) => {
-    let act = req.body.action;
+    let mid = req.params.mid;
+    let userId = req.session.userid;
     if ( matches[mid] ) {
-      let match = matches[mid];
-      if ( match[mid].user1hand[act.handPos] = act.cardId ) {
-        let response = {
-          changes: [],
-          match: battleLogic.formatMatchResponse(match, 1)
-        }
-        res.json(response);
-      }
+      let response = battleLogic.applyAction(req.body, userId, matches[mid]);
+      res.json(response);
     }
 
   });
