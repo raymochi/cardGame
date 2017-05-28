@@ -65,6 +65,11 @@ io.on('connection', (socket) => {
     socket.broadcast.emit('typing', data);
   });
 
+  socket.on('stop', (data) => {
+    console.log('stoping')
+    socket.broadcast.emit('stop', data);
+  });
+
 
 
 

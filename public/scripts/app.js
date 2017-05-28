@@ -2,8 +2,9 @@
 
 var loginStatus = false;
 var userID = "";
-let userName = "";
-let typingPeople = [];
+var userName = "";
+var typingPeople = [];
+var typingTimer;
 
 function createMatchElement(matchInfo, user1Info, user2Info) {
   var match = $('<article>').addClass('match-box');
@@ -76,14 +77,16 @@ $(() => {
 
   $('.inputMessage').on('input', function (event) {
     socket.emit('typing', userName);
-
+    if ($(this).val() === "") {
+      socket.emit('stop', userName);
+    }
   });
 
   $('.inputMessage').keydown(function (event) {
-
     if (event.which === 13) {
       event.preventDefault();
       if (($(this).val().trim())) {
+        socket.emit('stop', userName);
         console.log(!($(this).val().trim()));
         $.ajax({
           url: '/chat',
@@ -121,13 +124,22 @@ $(() => {
 
   });
 
-  socket.on('stop typing', function (data) {
-    $('#typing-flash').text(`${data} is typing`);
-    $('#typing-flash').slideDown();
+  socket.on('stop', function (data) {
+    typingPeople.splice(typingPeople.indexOf(data), 1);
+    console.log("removing");
+    if (typingPeople.length === 0) {
+      $('#typing-flash').css('display', 'none');
+    }
+    console.log(typingPeople, typingPeople.length)
+    $('#typing-flash').text(`${typingPeople} is typing`);
   });
 
   socket.on('typing', function (data) {
-    $('#typing-flash').text(`${data} ${$('#typing-flash').text()}`);
+    if (typingPeople.indexOf(data) === -1) {
+      console.log(data)
+      typingPeople.push(data);
+    }
+    $('#typing-flash').text(`${typingPeople} is typing`);
     $('#typing-flash').slideDown();
   });
 
