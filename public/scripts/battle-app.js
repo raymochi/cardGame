@@ -1,12 +1,12 @@
 const currMatch = {};
-let handSelection;
+let handSelection = null;
 
 function buildBoardHtml() {
   for ( let row = 0; row < 4; row++){
     let newRow = $(`<div class="battle-row" data-row="${row}">`)
     $('#board').append(newRow);
     for ( let col = 0; col < 3; col++) {
-      $(newRow).append(`<div class="col-xs-4 col-md-4 battle-col" data-row="${row}" data-col="${col}"></div>`);
+      $(newRow).append($(`<div class="battle-col" data-row="${row}" data-col="${col}">`).append($('<div>').addClass('board-card')));
     }
   }
 }
@@ -31,6 +31,14 @@ function renderCardElement(card) {
   let result = $('<div>').addClass('card').css({'background-image': 'url(http://www.fillmurray.com/90/90)', 'border': '2px solid ' + borderColor});
   if ( card.enemyCard ) result.addClass('enemy-card');
 
+  let pows = [
+    $('<div>').addClass('pow pow-front').text(card.frontPower),
+    $('<div>').addClass('pow pow-back').text(card.sidePower),
+    $('<div>').addClass('pow pow-right').text(card.sidePower),
+    $('<div>').addClass('pow pow-left').text(card.sidePower)
+    ];
+  result.append(pows);
+
   let valueElem = $('<div>').addClass('value-element').text(card.value);
   result.append(valueElem);
 
@@ -44,20 +52,74 @@ function renderHand(hand) {
   $('#hand').text('');
   for (let i = 0; i < hand.length; i++) {
     addCardToHand(hand[i]);
-    console.log('added card to hand', i);
   }
 }
 
 function renderBoardContents(board) {
 
+  for (let rowNum = 0; rowNum < board.length; rowNum++) {
+      for (let colNum = 0; colNum < board[rowNum].length; colNum++) {
+        let currPos = $('#board').find("[data-row='" + rowNum + "'][data-col='" + colNum +"']").find('.board-card').text('')
+        if ( board[rowNum][colNum] ) {
+          let cardElem = renderCardElement(board[rowNum][colNum]);
+          currPos.append(cardElem);
+        }
+      }
+    }
+  }
+
+function clearValidMoves() {
+  $('#board').find('.board-card').removeClass('valid');
 }
 
+function isAllyAdjacent(row, col) {
+  var isAdjacent = false;
+  var board = currMatch.board;
+  isAdjacent = board[row-1] && board[row-1][col] && !board[row-1][col].enemyCard ||
+                board[row+1] && board[row+1][col] && !board[row+1][col].enemyCard ||
+                board[row][col-1] && !board[row][col-1].enemyCard ||
+                board[row][col+1] && !board[row][col+1].enemyCard;
+  return isAdjacent;
+}
 
+function displayValidMoves(board) {
+  clearValidMoves();
+  for (let rowNum = 0; rowNum < board.length; rowNum++) {
+    for (let colNum = 0; colNum < board[rowNum].length; colNum++) {
+      var currSpot = board[rowNum][colNum];
+      var isValid = false;
+      if ( !currSpot && (rowNum > 1 || isAllyAdjacent(rowNum, colNum)) ) {
+        $('#board').find("[data-row='" + rowNum + "'][data-col='" + colNum +"']").find('.board-card').addClass('valid');
+      }
+    }
+  }
+}
 
 function hookListeners () {
   $('#hand').on('click', '.hand-card', function(event) {
-    $('#hand').find('.hand-card').removeClass('selected');
-    $(this).addClass('selected');
+    console.log('phase', currMatch.phase);
+    if ( currMatch.phase ) {
+      $('#hand').find('.hand-card').removeClass('selected');
+      $(this).addClass('selected');
+      handSelection = $(this).index();
+      displayValidMoves(currMatch.board);
+    }
+  });
+
+  $('#board').on('click', '.valid', function(event) {
+    $.ajax({
+    url: window.location.href + '/action',
+    method: 'POST',
+    data: {
+        handSelection: handSelection,
+        handCard: currMatch.userHand[handSelection],
+        target: [ $(this).parent().data('row'), $(this).parent().data('col')]
+      }
+    })
+    .done( (response) => {
+      clearValidMoves();
+      applyGameState(response.match);
+    });
   });
 }
 
@@ -73,10 +135,11 @@ function applyGameState(match) {
     currMatch.userHand = match.userHand;
     renderHand(currMatch.userHand);
   }
+
+  currMatch.phase = match.phase;
 }
 
 function requestGameState() {
-  console.log('requesting state');
   $.ajax({
     url: window.location.href + '/match',
     method: 'GET',
@@ -85,6 +148,8 @@ function requestGameState() {
     applyGameState(match);
   });
 }
+
+
 
 $( function() {
 

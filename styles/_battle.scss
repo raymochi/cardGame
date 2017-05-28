@@ -4,29 +4,6 @@
   height: 15vh;
 }
 
-.hand-card {
-  padding: 10px;
-  float: left;
-}
-
-#board {
-  margin-left: 10px;
-  float: left;
-  width: 70%;
-  padding: 10px;
-}
-
-.battle-row {
-  padding: 10px;
-}
-
-.battle-col {
-  height: 16vh;
-  margin: auto;
-  padding: 1vh;
-  border: 1px solid black;
-}
-
 #end-turn-btn {
   position: absolute;
   cursor: pointer;
@@ -43,8 +20,27 @@
   width: 100px;
 }
 
+#board {
+  margin-left: 10px;
+  padding: 10px;
+  display: block;
+  border: 2px solid black;
+}
 
+.battle-row {
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
 
+.battle-col {
+  height: 100px;
+  width: 100px;
+  margin: 0;
+  padding: 4px;
+  border: 1px solid black;
+  display: inline-grid;
+}
 
 .card {
   position: absolute;
@@ -60,6 +56,18 @@
   transform: rotate(180deg);
 }
 
+.board-card {
+  height: 90px;
+  width: 90px;
+  position: relative;
+  border-radius: 10px;
+  transition: width $hand-transition-time, margin-left $hand-transition-time;
+}
+
+.valid {
+  box-shadow: 0 0 10px 2px $board-glow-color;
+}
+
 #hand {
   display: block;
   position: absolute;
@@ -70,6 +78,8 @@
 }
 
 .hand-card {
+  padding: 10px;
+  float: left;
   height: 105px;
   width: 40px;
   transition: width $hand-transition-time, margin-left $hand-transition-time;
@@ -103,3 +113,49 @@
   border: inherit;
   background: white;
 }
+
+.pow {
+  width: 0;
+  height: 0;
+  position: absolute;
+}
+
+.pow-front {
+  border-left: 15px solid transparent;
+  border-right: 15px solid transparent;
+
+  border-top: 15px solid white;
+  top: 0;
+  right: 35%;
+
+  line-height: 20px;
+}
+
+.pow-back {
+  border-left: 15px solid transparent;
+  border-right: 15px solid transparent;
+
+  border-bottom: 15px solid white;
+  bottom: 0;
+  right: 35%;
+}
+
+.pow-right {
+  border-top: 15px solid transparent;
+  border-bottom: 15px solid transparent;
+
+  border-right: 15px solid white;
+  right: 0;
+  top: 35%;
+}
+
+.pow-left {
+  border-top: 15px solid transparent;
+  border-bottom: 15px solid transparent;
+
+  border-left: 15px solid white;
+  left: 0;
+  top: 35%;
+}
+
+

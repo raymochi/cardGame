@@ -10,11 +10,12 @@
 
     <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
     <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/scripts/socket.io/socket.io.js"></script>
     <script type="text/javascript" src="/scripts/battle-app.js"></script>
   </head>
 
   <body>
-  <div id="game-info">
+  <div class="row" id="game-info">
     <div class="div-btn col-xs-3 col-sm-3 col-md-2">
       Player 1: 0
     </div>
@@ -29,11 +30,9 @@
       Concede
     </div>
   </div>
-    <div class="row">
-    <main class="container col-md-6" id="board">
+    <main id="board">
 
     </main>
-      </div>
 
     <section class="chatbox">
       <h1>Chat Here!</h1>
