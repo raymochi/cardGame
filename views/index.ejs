@@ -10,6 +10,7 @@
 
     <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
     <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/scripts/socket.io/socket.io.js"></script>
     <script type="text/javascript" src="/scripts/app.js"></script>
   </head>
 
@@ -35,14 +36,11 @@
           <div class="forum">
             <nav>
               <ul class="chat-box">
-                <% for (log of chatLog) { %>
-                  <li style="padding:2px"><%= log %></li>
-                <% } %>
+
               </ul>
             </nav>
-            <form method="POST" action="/chat" style="padding:5px;position:relative;bottom:3px">
-              <input type="text" name="post" style="width:74%">
-              <input type="submit" value="Post" style="width:40px">
+            <form method="POST" action="/chat">
+              <input name=post type="text" class="inputMessage" placeholder="Type here..." style="width:74%">
             </form>
           </div>
         </section>

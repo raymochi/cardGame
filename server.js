@@ -14,6 +14,8 @@ const knexConfig    = require('./knexfile');
 const knex          = require('knex')(knexConfig[ENV]);
 const morgan        = require('morgan');
 const knexLogger    = require('knex-logger');
+const server        = require('http').createServer(app);
+const io            = require('socket.io')(server);
 
 const dataHelpers   = require('./lib/data-helpers')(knex);
 const battleLogic   = require('./lib/battle-logic')(dataHelpers);
@@ -49,10 +51,34 @@ app.use(cookieSession({
 }));
 
 // Mount all resource routes
-app.use("/", usersRoutes(dataHelpers, userHelpers));
-app.use("/battle", battleRoutes(dataHelpers, battleLogic));
+app.use("/", usersRoutes(dataHelpers, userHelpers, io));
+app.use("/battle", battleRoutes(dataHelpers, battleLogic, io));
 
 
-app.listen(PORT, () => {
+server.listen(PORT, () => {
   console.log("Example app listening on port " + PORT);
 });
+
+io.on('connection', (socket) => {
+
+  socket.on('submit message', (data) => {
+    console.log('message recieved',data);
+    io.sockets.emit('submit message', {
+      message: data
+    });
+  });
+
+
+
+
+
+
+
+
+})
+
+
+
+
+
+

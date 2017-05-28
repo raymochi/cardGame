@@ -1,6 +1,6 @@
 
 function createMatchElement(matchInfo) {
-  let match = $('<article>').addClass('match-box');
+  var match = $('<article>').addClass('match-box');
 
   // match.append(
   //   $('<header>').append(
@@ -15,21 +15,35 @@ function renderMatches(allMatches) {
 }
 
 $(() => {
-  $.ajax({
-    method: 'GET',
-    url: '/'
-  }).done((users) => {
-    for(user of users) {
-      $('<div>').text(user.username).appendTo($('body'));
+
+  var socket = io();
+
+  $('.inputMessage').on('submit', function (event) {
+      console.log(!($(this).val().trim()));
+      event.preventDefault();
+      if ($(this).val().trim()) {
+      $.ajax({
+        url: '/chat',
+        method: 'POST',
+        data: $(this).parent().serialize(),
+        success: function() {
+          console.log('enter key pressed')
+          // var message = $('.inputMessage').val();
+          // socket.emit('submit message', message);
+        }
+      })
+
     }
   });
 
-  $('#play-btn').on('click', () => {
-    $.ajax({
-      method: 'POST',
-      url: '/battle'
-    }).done(() => {
-      console.log('going to match');
-      })
-  });
+  // socket.on('connect', function() {
+
+    socket.on('submit message', function (data) {
+      console.log('client message', data);
+      $('.chat-box').append($("<p>").text(data));
+    });
+
+  // })
+
+
 });

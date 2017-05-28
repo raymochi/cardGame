@@ -4,7 +4,7 @@ const bcrypt        = require('bcrypt');
 const express       = require('express');
 const userRoutes    = express.Router();
 
-module.exports = (dataHelpers, userHelpers) => {
+module.exports = (dataHelpers, userHelpers, io) => {
 
   userRoutes.get('/', (req, res) => {
     let posts = [];
@@ -54,6 +54,7 @@ module.exports = (dataHelpers, userHelpers) => {
   });
 
   userRoutes.post('/chat', (req, res) => {
+    console.log("i am here")
     let userId = req.session.userid;
     let currentTime = new Date();
     let hours = currentTime.getHours();
@@ -68,10 +69,13 @@ module.exports = (dataHelpers, userHelpers) => {
       dataHelpers.getUserName(userId)
       .then( (currentUser) => {
         userHelpers.postMessage(userId, 'global', `[${hours}:${minutes}] ${currentUser.toUpperCase()}: ${req.body.post}`)
-        .then( () => {console.log('message posted')})
+        .then( () => {
+          console.log('submitting message now');
+          io.sockets.emit('submit message', `[${hours}:${minutes}] ${currentUser.toUpperCase()}: ${req.body.post}`)
+        })
       });
     }
-    res.redirect('/')
+    res.status(201);
   });
 
 
