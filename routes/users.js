@@ -52,10 +52,20 @@ module.exports = (dataHelpers, userHelpers, io) => {
     let email = req.body.email.toLowerCase();
     let hashedPass = bcrypt.hashSync(req.body.password, 10);
     userHelpers.registerAccount(username, hashedPass, email)
-    .then( () => {
-      console.log('register request completed');
+    .then( (data) => {
+      if (data) {
+        userHelpers.validateLogin(username)
+        .then( (user) => {
+          console.log('logging in', user.id);
+          req.session.userid = user.id;
+          res.redirect('/');
+        })
+        console.log('register request completed');
+      } else {
+        res.redirect('/');
+      }
     });
-    res.redirect('/')
+    // res.redirect('/')
   });
 
   userRoutes.get('/chat', (req, res) => {
