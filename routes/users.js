@@ -60,6 +60,7 @@ module.exports = (dataHelpers, userHelpers, io) => {
         userHelpers.validateLogin(username)
         .then( (user) => {
           console.log('logging in', user.id);
+          userHelpers.generateDeck(user.id);
           req.session.userid = user.id;
           res.redirect('/');
         })

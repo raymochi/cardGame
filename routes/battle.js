@@ -7,12 +7,14 @@ const battleRoutes  = express.Router();
 let matches = [];
 
 function isMatchOpen(userId, mid) {
+  console.log('is match open !matches[mid].user2 && matches[mid].user1 !== userId', !matches[mid].user2, matches[mid].user1 !== userId)
   return !matches[mid].user2 && matches[mid].user1 !== userId;
 }
 
 function findOpenMatch(userId) {
+  console.log('find open match');
   for (let mid in matches) {
-    if ( !isMatchOpen(userId, mid) ) {
+    if ( isMatchOpen(userId, mid) ) {
       return mid;
     }
   }

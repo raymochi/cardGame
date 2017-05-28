@@ -55,8 +55,14 @@ function renderHand(hand) {
   }
 }
 
-function renderBoardContents(board) {
-
+function renderBoardContents(board, userId) {
+      for (let rowNum = 0; rowNum < board.length; rowNum++) {
+        for (let colNum = 0; colNum < board[rowNum].length; colNum++) {
+          if ( board[rowNum][colNum] && board[rowNum][colNum].ownerId !== userId) {
+            board[rowNum][colNum].enemyCard = true;
+          }
+        }
+      }
   for (let rowNum = 0; rowNum < board.length; rowNum++) {
       for (let colNum = 0; colNum < board[rowNum].length; colNum++) {
         let currPos = $('#board').find("[data-row='" + rowNum + "'][data-col='" + colNum +"']").find('.board-card').text('')
@@ -128,7 +134,7 @@ function applyGameState(match) {
 
   if ( ! (JSON.stringify(currMatch.board) === JSON.stringify(match.board)) ) {
     currMatch.board = match.board;
-    renderBoardContents(currMatch.board);
+    renderBoardContents(currMatch.board, currMatch.userId);
   }
 
   if ( ! (JSON.stringify(currMatch.userHand) === JSON.stringify(match.userHand)) ) {
