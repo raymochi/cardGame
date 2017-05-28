@@ -1,10 +1,23 @@
 
 #chat-container {
 
+  height: 350px;
+
   .chat-box {
     height:200px;
     overflow:hidden;
     overflow-y:scroll;
+  }
+
+  .inputMessage {
+    display: none;
+    padding: 2px;
+    width:90%;
+  }
+
+  #typing-flash {
+    color: red;
+    display: none;
   }
 }
 
@@ -47,6 +60,12 @@
   #register-btn, #logout-btn {
     position: absolute;
     top: 100px;
+  }
+
+  #settings-btn {
+    position: absolute;
+    top: 180px;
+    display: none;
   }
 
 }

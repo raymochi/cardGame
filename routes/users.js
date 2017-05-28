@@ -37,8 +37,11 @@ module.exports = (dataHelpers, userHelpers, io) => {
   });
 
   userRoutes.get('/renderlogin', (req, res) => {
-    let userID = req.session.userid;
-    res.json(userID);
+    dataHelpers.getUserById(req.session.userid)
+    .then( (userInfo) => {
+      delete userInfo.password;
+      res.json(userInfo);
+    })
   });
 
   userRoutes.post('/logout', (req, res) => {

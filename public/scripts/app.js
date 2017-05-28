@@ -2,6 +2,8 @@
 
 var loginStatus = false;
 var userID = "";
+let userName = "";
+let typingPeople = [];
 
 function createMatchElement(matchInfo, user1Info, user2Info) {
   var match = $('<article>').addClass('match-box');
@@ -34,10 +36,14 @@ $(() => {
       $('#login-btn').fadeOut('fast');
       $('#play-btn').fadeIn('slow');
       $('#logout-btn').fadeIn('slow');
+      $('#settings-btn').fadeIn('slow');
+      $('.inputMessage').fadeIn();
     }
     else {
+      $('.inputMessage').fadeOut('fast');
       $('#logout-btn').fadeOut('fast');
       $('#play-btn').fadeOut('fast');
+      $('#settings-btn').fadeOut('fast');
       $('#register-btn').fadeIn('slow');
       $('#login-btn').fadeIn('slow');
     }
@@ -57,14 +63,21 @@ $(() => {
 
   $.get('/renderlogin').done(function (data) {
     if (data) {
-      userID = data;
+      userID = data.id;
+      userName = data.username;
       loginStatus = true;
     }
+    $('#settings-btn').text(userName.toUpperCase());
     toggleLogin(loginStatus);
   });
 
   var socket = io();
   loadChat();
+
+  $('.inputMessage').on('input', function (event) {
+    socket.emit('typing', userName);
+
+  });
 
   $('.inputMessage').keydown(function (event) {
 
@@ -108,6 +121,14 @@ $(() => {
 
   });
 
+  socket.on('stop typing', function (data) {
+    $('#typing-flash').text(`${data} is typing`);
+    $('#typing-flash').slideDown();
+  });
 
+  socket.on('typing', function (data) {
+    $('#typing-flash').text(`${data} ${$('#typing-flash').text()}`);
+    $('#typing-flash').slideDown();
+  });
 
 });
