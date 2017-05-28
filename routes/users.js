@@ -36,6 +36,11 @@ module.exports = (dataHelpers, userHelpers, io) => {
     });
   });
 
+  userRoutes.get('/renderlogin', (req, res) => {
+    let userID = req.session.userid;
+    res.json(userID);
+  });
+
   userRoutes.post('/logout', (req, res) => {
     console.log(req.session.userid,'logged out');
     req.session = null;

@@ -16,8 +16,8 @@
 
   <body>
     <div class="row">
-      <div class="col-md-4 container">
-        <section id="games-container">
+      <div class="col-md-4">
+        <section class="cus-container" id="games-container">
           <h1>Games</h1>
           <article class="match-box">
             <header>
@@ -30,8 +30,8 @@
           </article>
         </section>
       </div>
-      <div class="col-md-5">
-        <section class="container" id="chat-container">
+      <div class="col-md-8">
+        <section class="cus-container" id="chat-container">
         <h1>Chat</h1>
           <div class="forum">
             <nav>
@@ -45,13 +45,10 @@
           </div>
         </section>
 
-        <section class="container" id="settings-container">
-          <h1>Settings</h1>
+        <section class="cus-container" id="settings-container">
           <form method="POST" action="/battle">
           <input type="submit" value="Play" class="div-btn" id="play-btn"></form>
-          <form method="POST" action="/logout">
-          <input type="submit" value="Logout" class="div-btn" id="logout-btn">
-          </form>
+          <div type="submit" class="div-btn" id="logout-btn">Logout</div>
           <div class="div-btn" id="register-btn" data-toggle="modal" data-target="#modal-register">Register</div>
           <div class="div-btn" id="login-btn" data-toggle="modal" data-target="#modal-login">Login</div>
 

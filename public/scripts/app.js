@@ -1,5 +1,9 @@
+//Client side js for index template
 
-function createMatchElement(matchInfo) {
+var loginStatus = false;
+var userID = "";
+
+function createMatchElement(matchInfo, user1Info, user2Info) {
   var match = $('<article>').addClass('match-box');
 
   // match.append(
@@ -24,7 +28,20 @@ function renderChat(logs) {
 
 $(() => {
 
-  var socket = io();
+  function toggleLogin(status) {
+    if (status) {
+      $('#register-btn').fadeOut('fast');
+      $('#login-btn').fadeOut('fast');
+      $('#play-btn').fadeIn('slow');
+      $('#logout-btn').fadeIn('slow');
+    }
+    else {
+      $('#logout-btn').fadeOut('fast');
+      $('#play-btn').fadeOut('fast');
+      $('#register-btn').fadeIn('slow');
+      $('#login-btn').fadeIn('slow');
+    }
+  }
 
   function loadChat() {
     $.ajax({
@@ -38,6 +55,15 @@ $(() => {
     });
   }
 
+  $.get('/renderlogin').done(function (data) {
+    if (data) {
+      userID = data;
+      loginStatus = true;
+    }
+    toggleLogin(loginStatus);
+  });
+
+  var socket = io();
   loadChat();
 
   $('.inputMessage').keydown(function (event) {
@@ -52,24 +78,36 @@ $(() => {
           data: $(this).parent().serialize(),
           success: function() {
             console.log('enter key pressed')
-            // var message = $('.inputMessage').val();
-            // socket.emit('submit message', message);
           }
         })
       }
     }
   });
 
-  // socket.on('connect', function() {
+  $('#logout-btn').on('click', (event) => {
+    event.preventDefault();
+    $.ajax({
+        url: '/logout',
+        method: 'POST',
+        success: () => {
+          console.log('logout successs');
+          loginStatus = false;
+          toggleLogin(loginStatus);
+          // location.reload();    //reloads page after successful logout
+        },
+        failure: () => {
+          console.error("failed");
+        }
+      });
+  });
 
-    socket.on('submit message', function (data) {
-      $('.inputMessage').val('');
-      $('.chat-box').append($('<p>').text(data));
-      $('.chat-box').scrollTop($('.chat-box')[0].scrollHeight);
+  socket.on('submit message', function (data) {
+    $('.inputMessage').val('');
+    $('.chat-box').append($('<p>').text(data));
+    $('.chat-box').scrollTop($('.chat-box')[0].scrollHeight);
 
-    });
+  });
 
-  // })
 
 
 });
