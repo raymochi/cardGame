@@ -53,17 +53,27 @@ module.exports = (dataHelpers, userHelpers, io) => {
     res.redirect('/')
   });
 
+  userRoutes.get('/chat', (req, res) => {
+    let posts = [];
+    dataHelpers.getChatsByChannel('global')
+    .then( (logs) => {
+      for (let log of logs){
+        posts.push(log.message);
+      }
+      res.json(posts);
+    });
+  })
+
   userRoutes.post('/chat', (req, res) => {
-    console.log("i am here")
     let userId = req.session.userid;
     let currentTime = new Date();
     let hours = currentTime.getHours();
     let minutes = currentTime.getMinutes();
     if (minutes < 10) {
-      minutes = "0" + minutes;
+      minutes = '0' + minutes;
     }
     if (hours < 10) {
-      hours = "0" + hours;
+      hours = '0' + hours;
     }
     if (req.session.userid) {
       dataHelpers.getUserName(userId)
