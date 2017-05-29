@@ -158,4 +158,28 @@
   top: 35%;
 }
 
+.pow-text {
+  position: relative;
+}
+
+.pow-text.pow-front {
+  top: -19px;
+  left: -4px;
+}
+
+.pow-text.pow-back {
+  top: -1px;
+  left: -4px;
+}
+
+.pow-text.pow-right {
+  top: -10px;
+  left: 6px;
+}
+
+.pow-text.pow-left {
+  top: -10px;
+  left: -14px;
+}
+
 
