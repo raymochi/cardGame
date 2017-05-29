@@ -10,9 +10,11 @@ function createMatchElement(matchInfo, user1, user2) {
 
   match.append(
     $('<header>').append(
-      $('<h2>').text(`${user1.toUpperCase()} Vs. ${user2.toUpperCase()}`)),
+      $('<h2>').text(`${user1.username.toUpperCase()} Vs. ${user2.username.toUpperCase()}`)),
     $('<a>').attr('href', `http://localhost:8080/battle/${matchInfo.mid}`).append(
-      $('<div>').addClass('div-btn').text('Join'))
+      $('<div>').addClass('div-btn').text('Join')),
+    $('<h4>').text(`Rating: ${user1.rating}`).addClass('h4left'),
+    $('<h4>').text(`Rating: ${user2.rating}`).addClass('h4right')
   )
 
   return match;

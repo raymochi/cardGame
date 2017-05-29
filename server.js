@@ -9,6 +9,7 @@ const bodyParser    = require('body-parser');
 const sass          = require('node-sass-middleware');
 const app           = express();
 const cookieSession = require('cookie-session');
+const glicko2       = require('glicko2');
 
 const knexConfig    = require('./knexfile');
 const knex          = require('knex')(knexConfig[ENV]);
@@ -24,6 +25,13 @@ const userHelpers   = require('./lib/user-helpers')(dataHelpers);
 // Seperated Routes for each Resource
 const usersRoutes   = require('./routes/users');
 const battleRoutes  = require('./routes/battle');
+
+const glickoSettings ={
+  tau: 0.5,
+  rating: 1500,
+  rd: 200,
+  vol: 0.06
+}
 
 // Load the logger first so all (static) HTTP requests are logged to STDOUT
 // 'dev' = Concise output colored by response status for development use.

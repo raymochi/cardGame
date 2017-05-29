@@ -81,20 +81,21 @@ module.exports = (dataHelpers, battleLogic, io) => {
         let matchObj = {};
         matchObj.info = matches[match];
 
-        allInfo.push(dataHelpers.getUserName(matches[match].user1)
-        .then((user1name) => {
-          console.log(user1name);
-          matchObj.player1 = user1name;
+        allInfo.push(dataHelpers.getUserById(matches[match].user1)
+        .then((ser1) => {
+          matchObj.player1 = ser1;
         })
         .then(() =>{
           if (matches[match].user2) {
-            return dataHelpers.getUserName(matches[match].user2)
+            return dataHelpers.getUserById(matches[match].user2)
           } else {
-            return '';
+            return {username: '', rating: ''};
           }
         })
-        .then((user2name) => {
-          matchObj.player2 = user2name;
+        .then((ser2) => {
+          matchObj.player2 = ser2;
+          delete matchObj.player1.password;
+          delete matchObj.player2.password;
           matchInfo.push(matchObj);
         }))
       }
