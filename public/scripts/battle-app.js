@@ -42,21 +42,20 @@ function renderCardElement(card) {
   let result = $('<div>').addClass('card').css({'background-image': `url(/images/card${card.id}.png)`, 'border': '2px solid ' + borderColor});
   if ( card.enemyCard ) result.addClass('enemy-card');
 
-  let pows = [
-    $('<div>').addClass('pow pow-front').append($('<div>').addClass('pow-text pow-front').text(card.frontPower)),
-    $('<div>').addClass('pow pow-back').append($('<div>').addClass('pow-text pow-back').text(card.sidePower)),
-    $('<div>').addClass('pow pow-right').append($('<div>').addClass('pow-text pow-right').text(card.sidePower)),
-    $('<div>').addClass('pow pow-left').append($('<div>').addClass('pow-text pow-left').text(card.sidePower))
-    ];
-  result.append(pows);
-
-  let valueElem = $('<div>').addClass('value-element').text(card.value);
-  result.append(valueElem);
+  console.log(card.type);
+  if ( card.cardType === "creature") {
+    let pows = [
+      $('<div>').addClass('pow pow-front').append($('<div>').addClass('pow-text pow-front').text(card.frontPower)),
+      $('<div>').addClass('pow pow-back').append($('<div>').addClass('pow-text pow-back').text(card.sidePower)),
+      $('<div>').addClass('pow pow-right').append($('<div>').addClass('pow-text pow-right').text(card.sidePower)),
+      $('<div>').addClass('pow pow-left').append($('<div>').addClass('pow-text pow-left').text(card.sidePower))
+      ];
+    result.append(pows);
+    let valueElem = $('<div>').addClass('value-element').text(card.value);
+    result.append(valueElem);
+  }
 
   return result;
-  // return $(`<div class="card">
-  //       <img src="/images/blank.jpg" class="img-responsive">
-  //     </div>`);
 }
 
 function renderHand(hand) {

@@ -6,7 +6,7 @@
 }
 
 #end-turn-btn {
-  position: absolute;
+  display: inline-block;
   cursor: pointer;
   left: 55%;
   bottom: 4%;
@@ -28,6 +28,7 @@
   border: 2px solid black;
   width: 325px;
   height: 425px;
+  background-image: url('https://www.brewsterwallcovering.com/data/default/images/catalog/original/OM91808.jpg')
 }
 
 .battle-row {
@@ -146,8 +147,8 @@
   top: 0;
   right: 35%;
 
-  line-height: 20px;
 }
+
 
 .pow.pow-back {
   border-bottom: 15px solid #333;

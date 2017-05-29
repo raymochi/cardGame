@@ -72,6 +72,7 @@ exports.seed = function(knex, Promise) {
       knex('cards').insert({ id: 10, name: 'Archer', type: 'creature' }),
       knex('cards').insert({ id: 11, name: 'Rogue', type: 'creature' }),
       knex('cards').insert({ id: 12, name: 'Scout', type: 'creature' }),
+      knex('cards').insert({ id: 13, name: 'Infiltrate', type: 'spell' }),
 
     ]);
   })
