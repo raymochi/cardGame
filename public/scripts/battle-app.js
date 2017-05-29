@@ -58,6 +58,7 @@ function renderHand(hand) {
 function renderBoardContents(board, userId) {
       for (let rowNum = 0; rowNum < board.length; rowNum++) {
         for (let colNum = 0; colNum < board[rowNum].length; colNum++) {
+          if ( board[rowNum][colNum]) console.log('board[rowNum][colNum].ownerId !== userId', board[rowNum][colNum].ownerId, userId, board[rowNum][colNum].ownerId !== userId)
           if ( board[rowNum][colNum] && board[rowNum][colNum].ownerId !== userId) {
             board[rowNum][colNum].enemyCard = true;
           }
@@ -134,7 +135,8 @@ function applyGameState(match) {
 
   if ( ! (JSON.stringify(currMatch.board) === JSON.stringify(match.board)) ) {
     currMatch.board = match.board;
-    renderBoardContents(currMatch.board, currMatch.userId);
+    console.log('currMatch', currMatch);
+    renderBoardContents(currMatch.board, match.userId);
   }
 
   if ( ! (JSON.stringify(currMatch.userHand) === JSON.stringify(match.userHand)) ) {
