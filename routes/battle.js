@@ -68,13 +68,54 @@ module.exports = (dataHelpers, battleLogic, io) => {
 
   })
 
+  battleRoutes.get('/matches', (req, res) => {
+    let matchInfo = [];
+    let allInfo = [];
+
+      for (let match in matches) {
+        let matchObj = {};
+        matchObj.info = matches[match];
+
+        allInfo.push(dataHelpers.getUserName(matches[match].user1)
+        .then((user1name) => {
+          console.log(user1name);
+          matchObj.player1 = user1name;
+        })
+        .then(() =>{
+          if (matches[match].user2) {
+            return dataHelpers.getUserName(matches[match].user2)
+          } else {
+            return '';
+          }
+        })
+        .then((user2name) => {
+          matchObj.player2 = user2name;
+          matchInfo.push(matchObj);
+        }))
+      }
+      Promise.all(allInfo)
+      .then((result) => {
+        res.json(matchInfo);
+        console.log(matchInfo);
+      });
+  });
+
   //standard get request for loading battle page after
   //clicking play
   battleRoutes.get('/:mid/', (req, res) => {
-    let mid = req.params.mid
+    let mid = req.params.mid;
+    let userid = req.session.userid;
+
     if ( matches[mid] ) {
       // let currMatch = battleLogic.formatMatchResponse(matches[mid], 1);
       res.render('battle');
+
+      if (userid && isMatchOpen(userid, mid)) {
+        battleLogic.addUserToMatch(userid, matches[mid])
+        .then( (result) => {
+          console.log('added to match through join')
+        });
+      }
     } else {
       res.redirect('/')
     }
