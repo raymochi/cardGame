@@ -8,6 +8,7 @@ exports.up = function(knex, Promise) {
       table.string('email');
       table.string('avatar');
       table.integer('rating');
+
     }),
 
     knex.schema.createTable('friends', function(table){
