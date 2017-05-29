@@ -3,7 +3,7 @@
 @import 'index';
 
 body {
-  background-color: $background-color;
+  background-color: $paper;
 
   h1 {
     color: #244751;
@@ -27,7 +27,8 @@ body {
 }
 
 .cus-container {
-  border: 5px solid black;
+  background-color: $silk;
+  border: 2px solid $charcoal;
   border-radius: 10px;
   margin: 5px;
   padding: 10px;
@@ -37,9 +38,9 @@ body {
   margin: 5px;
   display: inline-block;
   border-radius: 5px;
-  background-color: $background-color;
+  background-color: $pale-gold;
   border: solid 1px black;
-  color: #00a087;
+  color: $charcoal;
   /*width: 120px;*/
   padding: 20px;
   opacity: 0.95;
@@ -49,5 +50,5 @@ body {
 
 .div-btn:hover {
   opacity: 1;
-  color: black;
+  color: $paper;
 }
