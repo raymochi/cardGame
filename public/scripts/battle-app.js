@@ -28,7 +28,7 @@ function renderCardElement(card) {
     borderColor = 'black';
   }
   let value;
-  let result = $('<div>').addClass('card').css({'background-image': 'url(http://www.fillmurray.com/90/90)', 'border': '2px solid ' + borderColor});
+  let result = $('<div>').addClass('card').css({'background-image': `url(/images/card${card.id}.png)`, 'border': '2px solid ' + borderColor});
   if ( card.enemyCard ) result.addClass('enemy-card');
 
   let pows = [
