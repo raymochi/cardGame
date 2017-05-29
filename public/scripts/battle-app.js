@@ -1,4 +1,4 @@
-const currMatch = {};
+let currMatch = {};
 let handSelection = null;
 
 function buildBoardHtml() {
@@ -15,6 +15,11 @@ function renderScores(player1Score, player2Score){
   console.log('rendering scores');
   $('.player-1-score').text('Player 1: ' + player1Score);
   $('.player-2-score').text('Player 2: ' + player2Score);
+}
+
+function renderTurn(turn) {
+  console.log('render turn');
+  $('.turn-counter').text('Turn: ' + turn);
 }
 
 function addCardToHand(card) {
@@ -117,6 +122,7 @@ function hookListeners () {
       $('#hand').find('.hand-card').removeClass('selected');
       $(this).addClass('selected');
       handSelection = $(this).index();
+      console.log
       displayValidMoves(currMatch.board);
     }
   });
@@ -133,26 +139,34 @@ function hookListeners () {
     })
     .done( (response) => {
       clearValidMoves();
-      applyGameState(response.match);
+      // applyGameState(response.match);
     });
   });
 }
 
 function applyGameState(match) {
   console.log('applyGameState', match);
-  if ( ! (JSON.stringify(currMatch.board) === JSON.stringify(match.board)) ) {
-    currMatch.board = match.board;
-    renderBoardContents(currMatch.board, match.userId);
-  }
+  renderBoardContents(currMatch.board, match.userId);
 
-  if ( ! (JSON.stringify(currMatch.userHand) === JSON.stringify(match.userHand)) ) {
-    currMatch.userHand = match.userHand;
-    renderHand(currMatch.userHand);
-  }
+  renderHand(currMatch.userHand);
 
   renderScores(match.user1Score, match.user2Score);
+  renderTurn(match.turn);
 
   currMatch.phase = match.phase;
+}
+
+function requestUserId(socket) {
+  $.ajax({
+    url:'/battle/userId',
+    method: 'GET',
+  })
+  .done( function(userId) {
+    socket.emit('userId', userId);
+  })
+  .done( function() {
+    requestGameState();
+  })
 }
 
 function requestGameState() {
@@ -161,7 +175,7 @@ function requestGameState() {
     method: 'GET',
   })
   .done( (match) => {
-    applyGameState(match);
+    // applyGameState(match);
   });
 }
 
@@ -169,6 +183,7 @@ function requestGameState() {
 
 $( function() {
 
+  var socket = io();
   buildBoardHtml();
   console.log('built board')
   // for (let i = 0; i < match.userHand.length; i++) {
@@ -178,7 +193,19 @@ $( function() {
 
   hookListeners();
 
+  requestUserId(socket);
+
   // console.log(match);
-  requestGameState();
+
+
+  // $(window).on('click', function() {
+  //   socket.emit('action');
+  // })
+
+  socket.on('gameState', function (match) {
+    console.log('gameState received: \n', match);
+    currMatch = match;
+    applyGameState(match);
+  })
 
 });

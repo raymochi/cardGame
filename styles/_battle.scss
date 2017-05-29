@@ -50,6 +50,8 @@
   overflow: hidden;
   height: 90px;
   width: 90px;
+  background-color: #DDD;
+  background-size: 90px;
 }
 
 .enemy-card {
@@ -121,10 +123,10 @@
 }
 
 .pow.pow-front {
+  border-top: 15px solid #333;
   border-left: 15px solid transparent;
   border-right: 15px solid transparent;
 
-  border-top: 15px solid white;
   top: 0;
   right: 35%;
 
@@ -132,34 +134,35 @@
 }
 
 .pow.pow-back {
+  border-bottom: 15px solid #333;
   border-left: 15px solid transparent;
   border-right: 15px solid transparent;
 
-  border-bottom: 15px solid white;
   bottom: 0;
   right: 35%;
 }
 
 .pow.pow-right {
+  border-right: 15px solid #333;
   border-top: 15px solid transparent;
   border-bottom: 15px solid transparent;
 
-  border-right: 15px solid white;
   right: 0;
   top: 35%;
 }
 
 .pow.pow-left {
+  border-left: 15px solid #333;
   border-top: 15px solid transparent;
   border-bottom: 15px solid transparent;
 
-  border-left: 15px solid white;
   left: 0;
   top: 35%;
 }
 
 .pow-text {
   position: relative;
+  color: white;
 }
 
 .pow-text.pow-front {

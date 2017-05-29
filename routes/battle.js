@@ -66,6 +66,11 @@ module.exports = (dataHelpers, battleLogic, io) => {
       });
     }
 
+  });
+
+  battleRoutes.get('/userId', (req, res) => {
+    let userId = req.session.userid;
+    res.json(userId);
   })
 
   battleRoutes.get('/matches', (req, res) => {
@@ -127,7 +132,9 @@ module.exports = (dataHelpers, battleLogic, io) => {
     let userId = req.session.userid
     if ( matches[mid] ) {
       let currMatch = battleLogic.formatMatchResponse(matches[mid], userId);
-      res.json(currMatch);
+      battleLogic.emitToPlayers(matches[mid], io);
+      console.log('emitted to players');
+      res.sendStatus(201);
     } else {
       res.redirect('/')
     }
@@ -144,7 +151,10 @@ module.exports = (dataHelpers, battleLogic, io) => {
     let userId = req.session.userid;
     if ( matches[mid] ) {
       let response = battleLogic.applyAction(req.body, userId, matches[mid]);
-      res.json(response);
+      // res.json(response);
+      battleLogic.emitToPlayers(matches[mid], io);
+      res.sendStatus(201);
+
     }
 
   });

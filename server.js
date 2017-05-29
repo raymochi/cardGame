@@ -59,7 +59,14 @@ server.listen(PORT, () => {
   console.log('Example app listening on port ' + PORT);
 });
 
+io.gameUserList = [];
+
 io.on('connection', (socket) => {
+
+  socket.on('userId', (userId) => {
+    console.log('userId received', userId);
+    io.gameUserList[userId] = socket;
+  })
 
   socket.on('typing', (data) => {
     socket.broadcast.emit('typing', data);
