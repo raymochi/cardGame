@@ -120,7 +120,7 @@
   position: absolute;
 }
 
-.pow-front {
+.pow.pow-front {
   border-left: 15px solid transparent;
   border-right: 15px solid transparent;
 
@@ -131,7 +131,7 @@
   line-height: 20px;
 }
 
-.pow-back {
+.pow.pow-back {
   border-left: 15px solid transparent;
   border-right: 15px solid transparent;
 
@@ -140,7 +140,7 @@
   right: 35%;
 }
 
-.pow-right {
+.pow.pow-right {
   border-top: 15px solid transparent;
   border-bottom: 15px solid transparent;
 
@@ -149,7 +149,7 @@
   top: 35%;
 }
 
-.pow-left {
+.pow.pow-left {
   border-top: 15px solid transparent;
   border-bottom: 15px solid transparent;
 

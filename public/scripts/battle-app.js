@@ -32,10 +32,10 @@ function renderCardElement(card) {
   if ( card.enemyCard ) result.addClass('enemy-card');
 
   let pows = [
-    $('<div>').addClass('pow pow-front').text(card.frontPower),
-    $('<div>').addClass('pow pow-back').text(card.sidePower),
-    $('<div>').addClass('pow pow-right').text(card.sidePower),
-    $('<div>').addClass('pow pow-left').text(card.sidePower)
+    $('<div>').addClass('pow pow-front').append($('<div>').addClass('pow-text pow-front').text(card.frontPower)),
+    $('<div>').addClass('pow pow-back').append($('<div>').addClass('pow-text pow-front').text(card.sidePower)),
+    $('<div>').addClass('pow pow-right').append($('<div>').addClass('pow-text pow-front').text(card.sidePower)),
+    $('<div>').addClass('pow pow-left').append($('<div>').addClass('pow-text pow-front').text(card.sidePower))
     ];
   result.append(pows);
 
