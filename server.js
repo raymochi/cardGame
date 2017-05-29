@@ -85,13 +85,7 @@ io.on('connection', (socket) => {
     socket.broadcast.emit('stop', data);
   });
 
-
-
-
-
-
-
-})
+});
 
 
 

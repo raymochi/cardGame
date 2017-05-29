@@ -179,8 +179,6 @@ function requestGameState() {
   });
 }
 
-
-
 $( function() {
 
   var socket = io();
@@ -202,10 +200,10 @@ $( function() {
   //   socket.emit('action');
   // })
 
-  socket.on('gameState', function (match) {
-    console.log('gameState received: \n', match);
-    currMatch = match;
-    applyGameState(match);
+  socket.on('gameState', function (response) {
+    console.log('gameState received: \n', response.match);
+    currMatch = response.match;
+    applyGameState(currMatch);
   })
 
 });
