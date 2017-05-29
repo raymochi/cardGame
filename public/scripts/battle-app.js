@@ -11,6 +11,12 @@ function buildBoardHtml() {
   }
 }
 
+function renderScores(player1Score, player2Score){
+  console.log('rendering scores');
+  $('.player-1-score').text('Player 1: ' + player1Score);
+  $('.player-2-score').text('Player 2: ' + player2Score);
+}
+
 function addCardToHand(card) {
   let handCard = $(`<div class="hand-card " data-card-id="${card.id}">`).append(renderCardElement(card));
   $('#hand').append(handCard);
@@ -33,9 +39,9 @@ function renderCardElement(card) {
 
   let pows = [
     $('<div>').addClass('pow pow-front').append($('<div>').addClass('pow-text pow-front').text(card.frontPower)),
-    $('<div>').addClass('pow pow-back').append($('<div>').addClass('pow-text pow-front').text(card.sidePower)),
-    $('<div>').addClass('pow pow-right').append($('<div>').addClass('pow-text pow-front').text(card.sidePower)),
-    $('<div>').addClass('pow pow-left').append($('<div>').addClass('pow-text pow-front').text(card.sidePower))
+    $('<div>').addClass('pow pow-back').append($('<div>').addClass('pow-text pow-back').text(card.sidePower)),
+    $('<div>').addClass('pow pow-right').append($('<div>').addClass('pow-text pow-right').text(card.sidePower)),
+    $('<div>').addClass('pow pow-left').append($('<div>').addClass('pow-text pow-left').text(card.sidePower))
     ];
   result.append(pows);
 
@@ -56,24 +62,26 @@ function renderHand(hand) {
 }
 
 function renderBoardContents(board, userId) {
-      for (let rowNum = 0; rowNum < board.length; rowNum++) {
-        for (let colNum = 0; colNum < board[rowNum].length; colNum++) {
-          if ( board[rowNum][colNum]) console.log('board[rowNum][colNum].ownerId !== userId', board[rowNum][colNum].ownerId, userId, board[rowNum][colNum].ownerId !== userId)
-          if ( board[rowNum][colNum] && board[rowNum][colNum].ownerId !== userId) {
-            board[rowNum][colNum].enemyCard = true;
-          }
-        }
-      }
   for (let rowNum = 0; rowNum < board.length; rowNum++) {
-      for (let colNum = 0; colNum < board[rowNum].length; colNum++) {
-        let currPos = $('#board').find("[data-row='" + rowNum + "'][data-col='" + colNum +"']").find('.board-card').text('')
-        if ( board[rowNum][colNum] ) {
-          let cardElem = renderCardElement(board[rowNum][colNum]);
-          currPos.append(cardElem);
+    for (let colNum = 0; colNum < board[rowNum].length; colNum++) {
+      let currPos = $('#board').find("[data-row='" + rowNum + "'][data-col='" + colNum +"']").find('.board-card').text('')
+      if ( board[rowNum][colNum] ) {
+        if ( board[rowNum][colNum].ownerId !== userId) {
+          board[rowNum][colNum].enemyCard = true;
         }
+        let cardElem = renderCardElement(board[rowNum][colNum]);
+        currPos.append(cardElem);
       }
+
     }
   }
+  for (let rowNum = 0; rowNum < board.length; rowNum++) {
+    for (let colNum = 0; colNum < board[rowNum].length; colNum++) {
+
+
+    }
+  }
+}
 
 function clearValidMoves() {
   $('#board').find('.board-card').removeClass('valid');
@@ -132,10 +140,8 @@ function hookListeners () {
 
 function applyGameState(match) {
   console.log('applyGameState', match);
-
   if ( ! (JSON.stringify(currMatch.board) === JSON.stringify(match.board)) ) {
     currMatch.board = match.board;
-    console.log('currMatch', currMatch);
     renderBoardContents(currMatch.board, match.userId);
   }
 
@@ -143,6 +149,8 @@ function applyGameState(match) {
     currMatch.userHand = match.userHand;
     renderHand(currMatch.userHand);
   }
+
+  renderScores(match.user1Score, match.user2Score);
 
   currMatch.phase = match.phase;
 }
