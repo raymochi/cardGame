@@ -102,7 +102,7 @@ function isAllyAdjacent(row, col) {
   return isAdjacent;
 }
 
-function displayValidMoves(board) {
+function displayValidMoves(board, card) {
   clearValidMoves();
   for (let rowNum = 0; rowNum < board.length; rowNum++) {
     for (let colNum = 0; colNum < board[rowNum].length; colNum++) {
@@ -112,6 +112,9 @@ function displayValidMoves(board) {
         $('#board').find("[data-row='" + rowNum + "'][data-col='" + colNum +"']").find('.board-card').addClass('valid');
       }
     }
+  }
+  if (Number(card.id) === 12) {
+    $('[data-row="3"]').find('.board-card').removeClass('valid');
   }
 }
 
@@ -123,7 +126,7 @@ function hookListeners () {
       $(this).addClass('selected');
       handSelection = $(this).index();
       console.log
-      displayValidMoves(currMatch.board);
+      displayValidMoves(currMatch.board, currMatch.userHand[handSelection]);
     }
   });
 
