@@ -24,11 +24,14 @@
 #games-container {
 
   padding: 10px;
+  max-height:700px;
+  overflow:hidden;
+  overflow-y:scroll;
 
   .match-box {
-    /*height: 120px;*/
     border: 1px solid black;
     border-radius: 5px;
+    margin: 5px;
 
     header {
       border: 1px solid black;

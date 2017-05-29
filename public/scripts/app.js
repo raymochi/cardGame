@@ -4,21 +4,26 @@ var loginStatus = false;
 var userID = "";
 var userName = "";
 var typingPeople = [];
-var typingTimer;
 
-function createMatchElement(matchInfo, user1Info, user2Info) {
+function createMatchElement(matchInfo, user1, user2) {
   var match = $('<article>').addClass('match-box');
 
-  // match.append(
-  //   $('<header>').append(
-  //     $('<img>').attr('src', `/images/user${matchInfo.user1}.jpg`),
-  //     $('<h1>').text(matchInfo.user1),
-  //     )
-  // )
+  match.append(
+    $('<header>').append(
+      $('<h2>').text(`${user1.toUpperCase()} Vs. ${user2.toUpperCase()}`)),
+    $('<a>').attr('href', `http://localhost:8080/battle/${matchInfo.mid}`).append(
+      $('<div>').addClass('div-btn').text('Join'))
+  )
+
+  return match;
 }
 
 function renderMatches(allMatches) {
-
+  for (var match of allMatches) {
+    console.log(match);
+    var $match = createMatchElement(match.info, match.player1, match.player2);
+    $('#games-container').append($match);
+  }
 }
 
 function renderChat(logs) {
@@ -62,6 +67,18 @@ $(() => {
     });
   }
 
+  function loadMatches() {
+    $.ajax({
+      url: '/battle/matches',
+      success: (data) => {
+        renderMatches(data);
+      },
+      failure: () => {
+        console.error('loding failed');
+      }
+    });
+  }
+
   $.get('/renderlogin').done(function (data) {
     if (data) {
       userID = data.id;
@@ -74,6 +91,7 @@ $(() => {
 
   var socket = io();
   loadChat();
+  loadMatches();
 
   $('.inputMessage').on('input', function (event) {
     socket.emit('typing', userName);
