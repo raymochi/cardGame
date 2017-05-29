@@ -25,12 +25,14 @@
   padding: 10px;
   display: block;
   border: 2px solid black;
+  width: 325px;
 }
 
 .battle-row {
   margin: 0;
   padding: 0;
   border: 0;
+  height: 100px;
 }
 
 .battle-col {
@@ -39,7 +41,7 @@
   margin: 0;
   padding: 4px;
   border: 1px solid black;
-  display: inline-grid;
+  display: inline-block;
 }
 
 .card {
@@ -51,7 +53,7 @@
   height: 90px;
   width: 90px;
   background-color: #DDD;
-  background-size: 90px;
+  background-size: cover;
 }
 
 .enemy-card {
