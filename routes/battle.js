@@ -7,12 +7,12 @@ const battleRoutes  = express.Router();
 let matches = [];
 
 function isMatchOpen(userId, mid) {
-  console.log('is match open !matches[mid].user2 && matches[mid].user1 !== userId', !matches[mid].user2, matches[mid].user1 !== userId)
+  // console.log('is match open !matches[mid].user2 && matches[mid].user1 !== userId', !matches[mid].user2, matches[mid].user1 !== userId)
   return !matches[mid].user2 && matches[mid].user1 !== userId;
 }
 
 function findOpenMatch(userId) {
-  console.log('find open match');
+  // console.log('find open match');
   for (let mid in matches) {
     if ( isMatchOpen(userId, mid) ) {
       return mid;
@@ -83,7 +83,7 @@ module.exports = (dataHelpers, battleLogic, io) => {
 
         allInfo.push(dataHelpers.getUserName(matches[match].user1)
         .then((user1name) => {
-          console.log(user1name);
+          // console.log(user1name);
           matchObj.player1 = user1name;
         })
         .then(() =>{
@@ -101,7 +101,7 @@ module.exports = (dataHelpers, battleLogic, io) => {
       Promise.all(allInfo)
       .then((result) => {
         res.json(matchInfo);
-        console.log(matchInfo);
+        // console.log(matchInfo);
       });
   });
 
@@ -118,7 +118,7 @@ module.exports = (dataHelpers, battleLogic, io) => {
       if (userid && isMatchOpen(userid, mid)) {
         battleLogic.addUserToMatch(userid, matches[mid])
         .then( (result) => {
-          console.log('added to match through join')
+          // console.log('added to match through join')
         });
       }
     } else {
@@ -131,9 +131,13 @@ module.exports = (dataHelpers, battleLogic, io) => {
     let mid = req.params.mid
     let userId = req.session.userid
     if ( matches[mid] ) {
-      let currMatch = battleLogic.formatMatchResponse(matches[mid], userId);
-      battleLogic.emitToPlayers(matches[mid], io);
-      console.log('emitted to players');
+      let response = {
+        changes: [],
+        match: matches[mid],
+      };
+
+      battleLogic.emitToPlayers(response, io);
+      // console.log('emitted to players');
       res.sendStatus(201);
     } else {
       res.redirect('/')
@@ -150,9 +154,12 @@ module.exports = (dataHelpers, battleLogic, io) => {
     let mid = req.params.mid;
     let userId = req.session.userid;
     if ( matches[mid] ) {
+      // console.log('req.body, userId, matches[mid]', req.body, userId, matches[mid]);
       let response = battleLogic.applyAction(req.body, userId, matches[mid]);
+      // console.log('battleroutes 158, response', response);
       // res.json(response);
-      battleLogic.emitToPlayers(matches[mid], io);
+      // battleLogic.emitToPlayers(matches[mid], io);
+      battleLogic.emitToPlayers(response, io);
       res.sendStatus(201);
 
     }
