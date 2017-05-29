@@ -1,7 +1,8 @@
-
-
 .img-responsive {
   height: 15vh;
+}
+
+#game-info {
 }
 
 #end-turn-btn {
@@ -21,11 +22,12 @@
 }
 
 #board {
-  margin-left: 10px;
+  margin-left: 15px;
   padding: 10px;
   display: block;
   border: 2px solid black;
   width: 325px;
+  height: 425px;
 }
 
 .battle-row {
@@ -70,20 +72,32 @@
 
 .valid {
   box-shadow: 0 0 10px 2px $board-glow-color;
+  animation-duration: 1.5s;
+  animation-name: highlight-pulse;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+}
+
+@keyframes highlight-pulse {
+  from {
+    box-shadow: 0 0 10px 2px $board-glow-color;
+  }
+
+  to {
+    box-shadow: 0 0 10px 2px $hand-glow-color;
+  }
 }
 
 #hand {
   display: block;
-  position: absolute;
-  left: 0;
-  bottom: 10px;
   width: 60%;
-  float: left;
+  height: 105px;
 }
 
 .hand-card {
   padding: 10px;
   float: left;
+  position: relative;
   height: 105px;
   width: 40px;
   transition: width $hand-transition-time, margin-left $hand-transition-time;
